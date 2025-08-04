@@ -1,0 +1,2 @@
+# forms
+A highly simplified version of the Sign-up app I am working on. I've decided to just use plain, HTML, CSS, and JavaScript for now until I am comfortable with the design and fucntionality, then move to a web framework later.

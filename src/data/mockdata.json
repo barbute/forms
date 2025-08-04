@@ -1,0 +1,35 @@
+{
+  "title": "Track Event Sign-up",
+  "slots": [
+    {
+      "id": "snacks-1", 
+      "name": "Snacks",
+      "description": "Bring snacks for the event, such as chips, protien bars, cake, caviar, peppercorns, blue cheese crumbles, and squid.",
+      "capacity": 4
+    }
+  ],
+  "entries": [
+    {
+      "allday": true,
+      "startdate": "1754327986",
+      "enddate": "1754327986",
+      "entries": [
+        {
+          "slotid": "snacks-1",
+          "signups": [
+            {
+              "name": "Tom",
+              "email": "tom4134@aol.com",
+              "comments": "I will bring fruit"
+            },
+            {
+              "name": "Mike",
+              "email": "doomslayer4510@mikesrefridgeratorservice.com",
+              "comments": "I will bring steak"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
