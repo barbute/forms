@@ -6,22 +6,99 @@
     <link rel="stylesheet" href="../styles.css">
     <script src="./formBuilder.js" defer></script>
     <title>Viewer | Sign-up</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .form {
+        /* Display as inline block so editor takes up full space of table */
+        display: inline-block;
+      }
+
+      .form-editor {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 2px;
+      }
+
+      table {
+        border-collapse: collapse;
+        border-spacing: 20px 2px;
+      }
+
+      .form-table thead {
+        color: #9C9B98;
+      }
+
+      .form-table th {
+        padding: 6px 12px;
+
+        text-align: left;
+
+        border-bottom: 0.5px solid #9C9B98;
+      }
+
+      .form-table-body tr {
+        border-bottom: 0.5px solid #9C9B98;
+      }
+
+      .form-table td {
+        padding: 12px 12px;
+
+        text-align: left;
+      }
+    </style>
   </head>
   <body>
-    <div class="container">
-      <div class="title"></div>
-      <button>New</button>
-      <div class="table">
-        <div class="table-header">
-          <div class="table-header-cell">Date</div>
-          <div class="table-header-cell">Slot</div>
-          <div class="table-header-cell">Description</div>
-          <div class="table-header-cell">Sign-ups</div>
-          <div class="table-header-cell">Capacity</div>
-        </div>
-        <div class="table-body">
-        </div>
+    <section class="form">
+      <div class="form-editor">
+        <h2 class="title">Form</h2>
+        <button>New</button>
       </div>
-    </div>
+      <table class="form-table">
+        <thead class="form-table-head">
+          <tr>
+            <th>Slot</th>
+            <th>Description</th>
+            <th>Dates</th>
+            <th>Sign-ups</th>
+            <th>Cap.</th>
+          </tr>
+        </thead>
+        <tbody class="form-table-body">
+         <tr>
+            <td>Snacks</td>
+            <td>Bring snacks for the event</td>
+            <td>Aug 2 - Aug 3</td>
+            <td>Joe, Alex, Tom...</td>
+            <td>4/5</td>
+          </tr>
+          <tr>
+            <td>Checker</td>
+            <td>Check tickets at entrance</td>
+            <td>Aug 2 - Aug 3</td>
+            <td>Ryan</td>
+            <td>1/1</td>
+          </tr>
+          <tr>
+            <td rowspan="2">Setup</td>
+            <td rowspan="2">Build and take down the event props</td>
+            <td>Aug 1</td>
+            <td>Cole, Toby</td>
+            <td>2/4</td>
+          </tr>
+          <tr>
+            <td>Aug 4</td>
+            <td>Ryan</td>
+            <td>1/4</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </body>
 </html>
