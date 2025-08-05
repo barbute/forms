@@ -14,13 +14,16 @@ async function readJSON(url) {
     form = data;
   }
   console.log(form);
+  buildTable(form);
 
   return data;
 }
 
+// Start point
 readJSON(testDataURL);
 
 const formBody = document.querySelector(".form-table-body");
+const formTitle = document.querySelector(".form-title");
 
 function createDateCell(startTimestampUnix, endTimestampUnix, isAllDay) {
   // Convert UNIX timestamps to milliseconds
@@ -112,6 +115,9 @@ function addRow(slot, description, startTimestampUnix,
   formBody.innerHTML += `<tr>${capacityCell}<tr>`;
 }
 
-function buildTable() {
-  
+function buildTable(data) {
+  const slots = data.slots;
+  const entries = data.entries;
+
+  formTitle.textContent = data.title;
 }
