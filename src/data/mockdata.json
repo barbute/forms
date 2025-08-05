@@ -8,15 +8,15 @@
       "capacity": 4
     }
   ],
-  "entries": [
+  "dates": [
     {
-      "allday": true,
-      "startdate": "1754327986",
-      "enddate": "1754327986",
+      "allDay": true,
+      "startDate": "1754327986",
+      "endDate": "1754327986",
       "entries": [
         {
-          "slotid": "snacks-1",
-          "signups": [
+          "slotID": "snacks-1",
+          "signUps": [
             {
               "name": "Tom",
               "email": "tom4134@aol.com",

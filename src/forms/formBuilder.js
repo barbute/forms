@@ -13,7 +13,6 @@ async function readJSON(url) {
   if (form === undefined) {
     form = data;
   }
-  console.log(form);
   buildTable(form);
 
   return data;
@@ -57,24 +56,24 @@ function createDateCell(startTimestampUnix, endTimestampUnix, isAllDay) {
   return dateCell;
 }
 
-function createSignupsCell(signups) {
+function createSignUpsCell(signUps) {
   let people = "";
-  for (let i = 0; i < signups.length; i++) {
-    if (i === signups.length - 1) {
-      people += signups[i];
+  for (let i = 0; i < signUps.length; i++) {
+    if (i === signUps.length - 1) {
+      people += signUps[i];
     } else {
-      people += signups[i] + ", ";
+      people += signUps[i] + ", ";
     }
   }
-  const signupsCell = `
+  const signUpsCell = `
     <td>${people}</td>
   `;
-  return signupsCell;
+  return signUpsCell;
 }
 
-function createCapacityCell(capacity, signups) {
-  const currentSignups = signups.length;
-  const percentFull = signups / capacity;
+function createCapacityCell(capacity, signUps) {
+  const currentSignUps = signUps.length;
+  const percentFull = signUps.length / capacity;
   let capacityColor = "";
   if (percentFull < 0.34) {
     capacityColor = "capacity-low";
@@ -85,14 +84,14 @@ function createCapacityCell(capacity, signups) {
   }
   const capacityCell = `
     <td>
-      <span class="pill ${capacityColor}">${currentSignups}/${capacity}</span>
+      <span class="pill ${capacityColor}">${currentSignUps}/${capacity}</span>
     </td>
   `;
   return capacityCell;
 }
 
 function addRow(slot, description, startTimestampUnix, 
-  endTimestampUnix, isAllDay, signups, capacity) {
+  endTimestampUnix, isAllDay, signUps, capacity) {
   const slotCell = `
     <td>${slot}</td>
   `;
@@ -104,20 +103,44 @@ function addRow(slot, description, startTimestampUnix,
   const dateCell = createDateCell(startTimestampUnix, 
     endTimestampUnix, isAllDay);
 
-  const signupsCell = createSignupsCell(signups);
+  const signUpsCell = createSignUpsCell(signUps);
 
-  const capacityCell = createCapacityCell(capacity);
+  const capacityCell = createCapacityCell(capacity, signUps);
 
-  formBody.innerHTML += `<tr>${slotCell}<tr>`;
-  formBody.innerHTML += `<tr>${descriptionCell}<tr>`;
-  formBody.innerHTML += `<tr>${dateCell}<tr>`;
-  formBody.innerHTML += `<tr>${signupsCell}<tr>`;
-  formBody.innerHTML += `<tr>${capacityCell}<tr>`;
+  formBody.innerHTML += `<tr>${slotCell}${descriptionCell}${dateCell}${signUpsCell}${capacityCell}<tr>`;
 }
 
 function buildTable(data) {
   const slots = data.slots;
-  const entries = data.entries;
+  const dates = data.dates;
 
   formTitle.textContent = data.title;
+
+  for (date of dates) {
+    for (entry of date.entries) {
+      // Lookup slot for entry
+      const entrySlotID = entry.slotID;
+      let entrySlot;
+      for (slot of slots) {
+        if (entrySlotID === slot.id) {
+          entrySlot = slot;
+        }
+      }
+
+      // Set variables that will be passed into row adder
+      const slotName = entrySlot.name;
+      const description = entrySlot.description;
+      const startDate = date.startDate;
+      const endDate = date.endDate;
+      const allDay = date.allDay;
+      let signUps = [];
+      for (person of entry.signUps) {
+        signUps.push(person.name);
+      }
+      const capacity = entrySlot.capacity;
+
+      addRow(slotName, 
+        description, startDate, endDate, allDay, signUps, capacity);
+    }
+  }
 }
