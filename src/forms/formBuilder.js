@@ -32,12 +32,14 @@ function createDateCell(startTimestampUnix, endTimestampUnix, isAllDay) {
   const startDate = new Date(startTimestampUnix);
   const endDate = new Date(endTimestampUnix);
   let dateCell;
+  // TODO Fix date display to only show month and day when it's the current year
   if (startTimestampUnix === endTimestampUnix) {
     if (isAllDay) {
       dateCell = `
         <td>${startDate.toDateString()}</td>
       `;
     } else {
+      // TODO Fix toTimeString() displaying the UTC time
       dateCell = `
         <td>${startDate.toTimeString()}</td>
       `;
@@ -48,6 +50,7 @@ function createDateCell(startTimestampUnix, endTimestampUnix, isAllDay) {
         <td>${startDate.toDateString()} → ${endDate.toDateString()}</td>
       `;
     } else {
+      // TODO Fix toTimeString() displaying the UTC time
       dateCell = `
         <td>${startDate.toTimeString()} → ${endDate.toTimeString()}</td>
       `;
@@ -116,12 +119,12 @@ function buildTable(data) {
 
   formTitle.textContent = data.title;
 
-  for (date of dates) {
+  for (let date of dates) {
     for (entry of date.entries) {
       // Lookup slot for entry
       const entrySlotID = entry.slotID;
       let entrySlot;
-      for (slot of slots) {
+      for (let slot of slots) {
         if (entrySlotID === slot.id) {
           entrySlot = slot;
         }
@@ -134,7 +137,7 @@ function buildTable(data) {
       const endDate = date.endDate;
       const allDay = date.allDay;
       let signUps = [];
-      for (person of entry.signUps) {
+      for (let person of entry.signUps) {
         signUps.push(person.name);
       }
       const capacity = entrySlot.capacity;
