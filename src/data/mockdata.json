@@ -11,8 +11,8 @@
   "dates": [
     {
       "allDay": true,
-      "startDate": "1754327986",
-      "endDate": "1754327986",
+      "startDate": 1754327986,
+      "endDate": 1754327986,
       "entries": [
         {
           "slotID": "snacks-1",

@@ -32,7 +32,7 @@ function createDateCell(startTimestampUnix, endTimestampUnix, isAllDay) {
   const startDate = new Date(startTimestampUnix);
   const endDate = new Date(endTimestampUnix);
   let dateCell;
-  if (startDate === endDate) {
+  if (startTimestampUnix === endTimestampUnix) {
     if (isAllDay) {
       dateCell = `
         <td>${startDate.toDateString()}</td>
