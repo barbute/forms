@@ -6,6 +6,12 @@
       "name": "Snacks",
       "description": "Bring snacks for the event, such as chips, protien bars, cake, caviar, peppercorns, blue cheese crumbles, and squid.",
       "capacity": 4
+    },
+    {
+      "id": "tent-1", 
+      "name": "Tent",
+      "description": "Setup and bring tent.",
+      "capacity": 2
     }
   ],
   "dates": [
@@ -26,6 +32,21 @@
               "name": "Mike",
               "email": "doomslayer4510@mikesrefridgeratorservice.com",
               "comments": "I will bring steak"
+            }
+          ]
+        },
+        {
+          "slotID": "tent-1",
+          "signUps": [
+            {
+              "name": "Sam",
+              "email": "sam@aol.com",
+              "comments": ""
+            },
+            {
+              "name": "Joe",
+              "email": "joe@aol.com",
+              "comments": ""
             }
           ]
         }

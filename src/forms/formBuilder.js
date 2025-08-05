@@ -66,7 +66,7 @@ function createSignUpsCell(signUps) {
     }
   }
   const signUpsCell = `
-    <td>${people}</td>
+    <td class="form-table-cell-signups">${people}</td>
   `;
   return signUpsCell;
 }
@@ -84,7 +84,7 @@ function createCapacityCell(capacity, signUps) {
   }
   const capacityCell = `
     <td>
-      <span class="pill ${capacityColor}">${currentSignUps}/${capacity}</span>
+      <div class="pill ${capacityColor}">${currentSignUps}/${capacity}</div>
     </td>
   `;
   return capacityCell;
@@ -97,7 +97,7 @@ function addRow(slot, description, startTimestampUnix,
   `;
 
   const descriptionCell = `
-    <td>${description}</td>
+    <td class="form-table-cell-description">${description}</td>
   `;
 
   const dateCell = createDateCell(startTimestampUnix, 
