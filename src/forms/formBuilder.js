@@ -1,4 +1,5 @@
-const testDataURL = "http://127.0.0.1:5500/src/data/mockdata.json";
+// const testDataURL = "http://127.0.0.1:5500/src/data/mockdata.json";
+const testDataURL = "https://barbute.github.io/forms/data/mockdata.json";
 
 const container = document.querySelector(".container")
 let form;
