@@ -109,15 +109,20 @@ function addRow(slot, description, startTimestampUnix,
 
   const capacityCell = createCapacityCell(capacity, signUps);
 
+
+  let row;
   // If we are on the first slot for this date, add the date cell
   if (currentSlot === 0) {
     const dateCell = createDateCell(startTimestampUnix, 
       endTimestampUnix, isAllDay, slotsNum);
 
-    formBody.innerHTML += `<tr>${slotCell}${descriptionCell}${dateCell}${signUpsCell}${capacityCell}<tr>`;
+    row = `<tr>${slotCell}${descriptionCell}${dateCell}${signUpsCell}${capacityCell}</tr>`
+    formBody.innerHTML += row;
   } else {
-    formBody.innerHTML += `<tr>${slotCell}${descriptionCell}${signUpsCell}${capacityCell}<tr>`;
+    row = `<tr>${slotCell}${descriptionCell}${signUpsCell}${capacityCell}</tr>`;
+    formBody.innerHTML += row;
   }
+  console.log(row);
 }
 
 function buildTable(data) {
