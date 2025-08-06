@@ -12,11 +12,19 @@
       "name": "Tent",
       "description": "Setup and bring tent.",
       "capacity": 2
+    },
+    {
+      "id": "carpool-1", 
+      "name": "Carpool",
+      "description": "Need to carpool students to event center. Each person needs to specify how many they can bring.",
+      "capacity": 10
     }
   ],
   "dates": [
     {
-      "allDay": true,
+      "date": "2025-08-02",
+      "startTime": "05:00",
+      "endTime": "09:30",
       "startDate": 1754327986,
       "endDate": 1754327986,
       "entries": [
@@ -47,6 +55,35 @@
               "name": "Joe",
               "email": "joe@aol.com",
               "comments": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-08-01",
+      "startTime": "06:00",
+      "endTime": "12:30",
+      "startDate": 1754231400,
+      "endDate": 1754242200,
+      "entries": [
+        {
+          "slotID": "carpool-1",
+          "signUps": [
+            {
+              "name": "Tom",
+              "email": "tom4134@aol.com",
+              "comments": "4 people"
+            },
+            {
+              "name": "Mike",
+              "email": "doomslayer4510@mikesrefridgeratorservice.com",
+              "comments": "2 people"
+            },
+            {
+              "name": "Jake",
+              "email": "bob@yahoo.com",
+              "comments": "3 people"
             }
           ]
         }

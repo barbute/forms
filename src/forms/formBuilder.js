@@ -1,5 +1,5 @@
-// const testDataURL = "http://127.0.0.1:5500/src/data/mockdata.json";
-const testDataURL = "https://barbute.github.io/forms/data/mockdata.json";
+const testDataURL = "http://127.0.0.1:5500/src/data/mockdata.json";
+// const testDataURL = "https://barbute.github.io/forms/data/mockdata.json";
 
 const container = document.querySelector(".container")
 let form;
@@ -25,39 +25,48 @@ readJSON(testDataURL);
 const formBody = document.querySelector(".form-table-body");
 const formTitle = document.querySelector(".form-title");
 
-function createDateCell(startTimestampUnix, endTimestampUnix, isAllDay, rowspan) {
-  // Convert UNIX timestamps to milliseconds
-  startTimestampUnix = startTimestampUnix * 1000;
-  endTimestampUnix = endTimestampUnix * 1000;
-  // Convert milliseconds to JS Date object
-  const startDate = new Date(startTimestampUnix);
-  const endDate = new Date(endTimestampUnix);
+/*
+ * TODO Should store date & time as UTC, then convert to CST/local time when
+ * displaying. When inputting, use local browser time then convert to UTC
+ */
+function createDateCell(date, startTime, endTime, rowspan) {
+  const months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", 
+    "Sept", "Oct", "Nov", "Dec"];
+  
+  console.log(date);
+  console.log(date+"T"+startTime+":00-5:00");
   let dateCell;
+  const startDate = new Date(date+"T"+startTime+":00-5:00");
+  const endDate = new Date(date+"T"+endTime+":00-5:00")
+  dateCell = `<td rowspan=${rowspan}>${startDate.toDateString()}</td>`;
+
+  // TODO Ensure timezone conversions are correct
   // TODO Fix date display to only show month and day when it's the current year
-  if (startTimestampUnix === endTimestampUnix) {
-    if (isAllDay) {
-      // TODO Fix date not spanning multiple rows
-      dateCell = `
-        <td rowspan=${rowspan}>${startDate.toDateString()}</td>
-      `;
-    } else {
-      // TODO Fix toTimeString() displaying the UTC time
-      dateCell = `
-        <td rowspan=${rowspan}>${startDate.toTimeString()}</td>
-      `;
-    }
-  } else {
-    if (isAllDay) {
-      dateCell = `
-        <td rowspan=${rowspan}>${startDate.toDateString()} → ${endDate.toDateString()}</td>
-      `;
-    } else {
-      // TODO Fix toTimeString() displaying the UTC time
-      dateCell = `
-        <td rowspan=${rowspan}>${startDate.toTimeString()} → ${endDate.toTimeString()}</td>
-      `;
-    }
-  }
+  // if (startTimestampUnix === endTimestampUnix) {
+  //   if (isAllDay) {
+  //     // TODO Fix date not spanning multiple rows
+  //     dateCell = `
+  //       <td rowspan=${rowspan}>${months[startDate.getMonth()]} ${startDate.getDate()} - All day</td>
+  //     `;
+  //   } else {
+  //     // TODO Fix toTimeString() displaying the UTC time
+  //     dateCell = `
+  //       <td rowspan=${rowspan}>${months[startDate.getMonth()]} ${startDate.getDate()}</td>
+  //     `;
+  //   }
+  // } else {
+  //   if (isAllDay) {
+  //     dateCell = `
+  //       <td rowspan=${rowspan}>${months[startDate.getMonth()]} ${startDate.getDate()} → ${months[endDate.getMonth()]} ${endDate.getDate()} - All day</td>
+  //     `;
+  //   } else {
+  //     // TODO Fix toTimeString() displaying the UTC time
+  //     dateCell = `
+  //       <td rowspan=${rowspan}>${months[startDate.getMonth()]} ${startDate.getDate()} → ${months[endDate.getMonth()]} ${endDate.getDate()}</td>
+  //     `;
+  //   }
+  // }
+
   return dateCell;
 }
 
@@ -95,8 +104,8 @@ function createCapacityCell(capacity, signUps) {
   return capacityCell;
 }
 
-function addRow(slot, description, startTimestampUnix, 
-  endTimestampUnix, isAllDay, signUps, capacity, slotsNum, currentSlot) {
+function addRow(slot, description, date, startTime, endTime, signUps, 
+  capacity, slotsNum, currentSlot) {
   const slotCell = `
     <td>${slot}</td>
   `;
@@ -113,16 +122,14 @@ function addRow(slot, description, startTimestampUnix,
   let row;
   // If we are on the first slot for this date, add the date cell
   if (currentSlot === 0) {
-    const dateCell = createDateCell(startTimestampUnix, 
-      endTimestampUnix, isAllDay, slotsNum);
+    const dateCell = createDateCell(date, startTime, endTime, slotsNum);
 
-    row = `<tr>${slotCell}${descriptionCell}${dateCell}${signUpsCell}${capacityCell}</tr>`
+    row = `<tr>${dateCell}${slotCell}${descriptionCell}${signUpsCell}${capacityCell}</tr>`
     formBody.innerHTML += row;
   } else {
     row = `<tr>${slotCell}${descriptionCell}${signUpsCell}${capacityCell}</tr>`;
     formBody.innerHTML += row;
   }
-  console.log(row);
 }
 
 function buildTable(data) {
@@ -131,9 +138,9 @@ function buildTable(data) {
 
   formTitle.textContent = data.title;
 
-  for (let date of dates) {
-    for (let i = 0; i< date.entries.length; i++) {
-      let entry = date.entries[i];
+  for (let entryDate of dates) {
+    for (let i = 0; i < entryDate.entries.length; i++) {
+      let entry = entryDate.entries[i];
 
       // Lookup slot for entry
       const entrySlotID = entry.slotID;
@@ -147,9 +154,9 @@ function buildTable(data) {
       // Set variables that will be passed into row adder
       const slotName = entrySlot.name;
       const description = entrySlot.description;
-      const startDate = date.startDate;
-      const endDate = date.endDate;
-      const allDay = date.allDay;
+      const date = entryDate.date;
+      const startTime = entryDate.startTime;
+      const endTime = entryDate.endTime;
       let signUps = [];
       for (let person of entry.signUps) {
         signUps.push(person.name);
@@ -157,10 +164,7 @@ function buildTable(data) {
       const capacity = entrySlot.capacity;
 
       addRow(slotName, 
-        description, startDate, endDate, allDay, signUps, capacity, date.entries.length, i);
+        description, date, startTime, endTime, signUps, capacity, entryDate.entries.length, i);
     }
-    // for (entry of date.entries) {
-
-    // }
   }
 }
