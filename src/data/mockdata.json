@@ -22,11 +22,9 @@
   ],
   "dates": [
     {
-      "date": "2025-08-02",
-      "startTime": "05:00",
-      "endTime": "09:30",
-      "startDate": 1754327986,
-      "endDate": 1754327986,
+      "dateUTC": "2025-08-03",
+      "startTimeUTC": "10:00",
+      "endTimeUTC": "14:30",
       "entries": [
         {
           "slotID": "snacks-1",
@@ -61,11 +59,9 @@
       ]
     },
     {
-      "date": "2025-08-01",
-      "startTime": "06:00",
-      "endTime": "12:30",
-      "startDate": 1754231400,
-      "endDate": 1754242200,
+      "dateUTC": "2025-08-02",
+      "startTimeUTC": "11:00",
+      "endTimeUTC": "17:30",
       "entries": [
         {
           "slotID": "carpool-1",
